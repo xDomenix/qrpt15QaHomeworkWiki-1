@@ -5,32 +5,50 @@ import { Builder, Capabilities, By, until, WebDriver, WebElement } from "seleniu
 const chromedriver = require("chromedriver"); 
 const driver = new Builder().withCapabilities(Capabilities.chrome()).build(); 
 
-class Employees {
-  // Write a class that holds the name, phone, and title for the employee.
-}; 
+class Employee {
+  name: string;
+  phone: string;
+  title: string;
 
-let employees: Array<Employees> = [
-  //Create an array of four employees using your class. 
-]
+  constructor(name: string, phone: string, title: string) {
+    this.name = name;
+    this.phone = phone;
+    this.title = title;
+  }
+}
 
-const addEmployee: By = By.//fill in the blank
-const newEmployee: By = By.// fill in the blank
-const nameInput: By = By. // fill in the blank
-const phoneInput: By = By. // fill in the blank
-const titleInput: By = By. // fill in the blank
-const saveBtn: By = By. // fill in the blank 
+let employees: Array<Employee> = [
+  new Employee("John Doe", "1234567890", "Manager"),
+  new Employee("Jane Smith", "0987654321", "Developer"),
+  new Employee("Jim Brown", "5555555555", "Designer"),
+  new Employee("Jill White", "4444444444", "Analyst")
+];
 
-let myFunc = async (employees) => {
-   //Create a function to add an employee.
-}; 
+const addEmployee: By = By.css('[name="addEmployee"]');
+const newEmployee: By = By.css('.employeeCard:not([style*="display: none"])');
+const nameInput: By = By.name('nameEntry');
+const phoneInput: By = By.name('phoneEntry');
+const titleInput: By = By.name('titleEntry');
+const saveBtn: By = By.id('saveBtn');
+
+let myFunc = async (employee: Employee) => {
+  await driver.findElement(addEmployee).click();
+  await driver.findElement(nameInput).clear();
+  await driver.findElement(nameInput).sendKeys(employee.name);
+  await driver.findElement(phoneInput).clear();
+  await driver.findElement(phoneInput).sendKeys(employee.phone);
+  await driver.findElement(titleInput).clear();
+  await driver.findElement(titleInput).sendKeys(employee.title);
+  await driver.findElement(saveBtn).click();
+};
 
 describe("should add employees to employee manager", () => {
-    test("can add employees using myFunc", async () => {
-        await driver.get("https://devmountain-qa.github.io/employee-manager/1.2_Version/index.html"); 
-        for(let i = 0; i < employees.length; i++) {
-            await myFunc(employees[i]); 
-        }; 
-        await driver.sleep(3000); 
-        await driver.quit(); 
-    });
-}); 
+  test("can add employees using myFunc", async () => {
+    await driver.get("https://devmountain-qa.github.io/employee-manager/1.2_Version/index.html");
+    for(let i = 0; i < employees.length; i++) {
+      await myFunc(employees[i]);
+    }
+    await driver.sleep(3000);
+    await driver.quit();
+  });
+});
