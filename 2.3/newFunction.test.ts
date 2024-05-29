@@ -56,3 +56,8 @@ describe("blockBuster", () => {
     expect(blockBuster("Fast X")).toBe("I'm sorry we do not carry Fast X");
   });
 });
+
+//Questions:
+//myFunction behavior: The tests suggest myFunction returns different strings based on the numeric input. However, without the implementation, it's not clear how the function distinguishes between these cases. What logic does myFunction use to determine these return values?
+//blockBuster behavior: The tests imply blockBuster maps specific movie titles to certain strings. What mechanism does blockBuster use to map these titles to the respective movies? Is it a simple object lookup or a more complex function?
+//Default behavior in blockBuster: For the unrecognized movie input, blockBuster returns a specific message. Is this implemented using a default case or fallback mechanism?
