@@ -31,6 +31,23 @@ class Fish extends Animal {
    }
 }
 
+class Bird extends Animal {
+   flightSpeed: number;
+
+   constructor(name: string, sound: string, food: string, flightSpeed: number) {
+      super(name, sound, food);
+      this.flightSpeed = flightSpeed;
+   }
+
+   fly(): string {
+      if (this.flightSpeed > 0) {
+         return `The ${this.name} flies at speeds of up to ${this.flightSpeed} meters per second!`;
+      } else {
+         return `The ${this.name} is a flightless bird.`;
+      }
+   }
+}
+
 // Tests
 describe("Testing animals", () => {
    test("a basic animal works as expected", () => {
@@ -85,3 +102,4 @@ describe("Testing animals", () => {
       });
    });
 });
+
